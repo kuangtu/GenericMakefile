@@ -1,3 +1,8 @@
+###文档模板来自于
+###通过对该模板进行修改
+###（1）提出gcc、编译选项到Make.defines
+###（2）增加外部静态库
+###（3）可以编译多个二进制生成程序
 #### PROJECT SETTINGS ####
 # The name of the executable to be created
 BIN_NAME := hello
@@ -216,9 +221,13 @@ $(BIN_PATH)/$(BIN_NAME): $(OBJECTS)
 # Source file rules
 # After the first compilation they will be joined with the rules from the
 # dependency files to provide header dependencies
+#　@不回显命令
+# @echo ${OBJECTS}
+# @echo ${DEPS}
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@echo "Compiling: $< -> $@"
 	@$(START_TIME)
-	$(CMD_PREFIX)$(CC) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	#$(CMD_PREFIX)$(CC) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -MP -MMD -c $< -o $@
 	@echo -en "\t Compile time: "
 	@$(END_TIME)
